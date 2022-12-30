@@ -3,6 +3,8 @@
 
 
 class openIA{
+
+    private $api_key ;
     public $model = "text-davinci-003" ;
     public $prompt ;
     public $temperature = 0.3 ;
@@ -14,7 +16,13 @@ class openIA{
 
     public function __construct()
     {
+        $this->api_key = file_get_contents('../api-key.txt') ;
+        // create à file with the sk key in the root directory
 
+    }
+
+    public function setPrompt($question){
+        $this->prompt = $question ;
     }
 
     public function sendRequest(){
@@ -38,7 +46,7 @@ class openIA{
 
         $headers = array();
         $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Authorization: _ENV["Bearer OPENAI_API_KEY"]';
+        $headers[] = 'Authorization: _ENV["Bearer '.$this->api_key.'"]';
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
