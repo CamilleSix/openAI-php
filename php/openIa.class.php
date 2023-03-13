@@ -7,7 +7,7 @@ class openIA{
     private $api_key ;
     public $model = "text-davinci-003" ;
     public $prompt ;
-    public $temperature = 0.3 ;
+    public $temperature = 0.3 ; // value  between 0 and 2
     public $max_tokens = 150 ;
     public $top_p = 1.0 ;
     public $frequency_penalty = 0.0 ;
@@ -18,7 +18,14 @@ class openIA{
     {
         $this->api_key = file_get_contents('../api-key.txt') ;
         // create à file with the sk key in the root directory
+        // gitignore is repo to save private data
 
+    }
+
+    public function setTemperature($temperature){
+        if ($temperature <= 2 && $temperature >= 0){
+            $this->temperature = $temperature ;
+        }
     }
 
     public function setPrompt($question){
